@@ -1,0 +1,22 @@
+{
+    "name": "indrapwa/bpjsv2",
+    "description": "Wrapper for BPJS versi 2 Indonesia. Include Aplicare, Vclaim, Antrean RS",
+    "type": "library",
+    "require": {
+        "nullpunkt/lz-string-php": "^1.3",
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "indrapwa",
+            "email": "gensbookcities@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Indrapwa\\Bpjsv2\\": "src/"
+        }
+    }
+}

@@ -23,7 +23,7 @@ class Service extends Main
                 'metadata' => $response['metadata']
             ];
         }
-        return json_encode($response, true);
+        return $response;
     }
     public function dokter()
     {
@@ -42,7 +42,7 @@ class Service extends Main
                 'metadata' => $response['metadata']
             ];
         }
-        return json_encode($response, true);
+        return $response;
     }
 
     public function jadwalDokter($kodepoli, $tanggal)
@@ -50,7 +50,7 @@ class Service extends Main
         $response = $this->get("jadwaldokter/kodepoli/$kodepoli/tanggal/$tanggal");
         $response = json_decode($response, true);
 
-        if ($response['metadata']['code'] == 1) {
+        if ($response['metadata']['code'] == 1 || $response['metadata']['code'] == 200) {
             $data = $this->stringDecrypt($this->cons_id . $this->secret_key . $this->timestamp, $response['response']);
             $data = $this->decompress($data);
             $response = [
@@ -62,7 +62,7 @@ class Service extends Main
                 'metadata' => $response['metadata']
             ];
         }
-        return json_encode($response, true);
+        return $response;
     }
     public function jadwalDokterUpdate($data)
     {
@@ -81,26 +81,22 @@ class Service extends Main
                 'metadata' => $response['metadata']
             ];
         }
-        return json_encode($response, true);
+        return $response;
     }
     public function antreanTambah($data)
     {
         $response = $this->post("antrean/add", $data);
         $response = json_decode($response, true);
-
         if ($response['metadata']['code'] == 200) {
-            $data = $this->stringDecrypt($this->cons_id . $this->secret_key . $this->timestamp, $response['response']);
-            $data = $this->decompress($data);
             $response = [
-                'metadata' => $response['metadata'],
-                'response' => json_decode($data, true)
+                'metadata' => $response['metadata']
             ];
         } else {
             $response = [
                 'metadata' => $response['metadata']
             ];
         }
-        return json_encode($response, true);
+        return $response;
     }
     public function antreanUpdateWaktu($data)
     {
@@ -108,18 +104,15 @@ class Service extends Main
         $response = json_decode($response, true);
 
         if ($response['metadata']['code'] == 200) {
-            $data = $this->stringDecrypt($this->cons_id . $this->secret_key . $this->timestamp, $response['response']);
-            $data = $this->decompress($data);
             $response = [
-                'metadata' => $response['metadata'],
-                'response' => json_decode($data, true)
+                'metadata' => $response['metadata']
             ];
         } else {
             $response = [
                 'metadata' => $response['metadata']
             ];
         }
-        return json_encode($response, true);
+        return $response;
     }
 
     public function antreanBatal($data)
@@ -128,18 +121,15 @@ class Service extends Main
         $response = json_decode($response, true);
 
         if ($response['metadata']['code'] == 200) {
-            $data = $this->stringDecrypt($this->cons_id . $this->secret_key . $this->timestamp, @$response['response']);
-            $data = $this->decompress($data);
             $response = [
-                'metadata' => $response['metadata'],
-                'response' => json_decode($data, true)
+                'metadata' => $response['metadata']
             ];
         } else {
             $response = [
                 'metadata' => $response['metadata']
             ];
         }
-        return json_encode($response, true);
+        return $response;
     }
 
     public function antreanGetListTask($data)
@@ -159,7 +149,7 @@ class Service extends Main
                 'metadata' => $response['metadata']
             ];
         }
-        return json_encode($response, true);
+        return $response;
     }
 
     public function dashboardPerTanggal($tanggal,$waktu)
@@ -179,7 +169,7 @@ class Service extends Main
                 'metadata' => $response['metadata']
             ];
         }
-        return json_encode($response, true);
+        return $response;
     }
 
     public function dashboardPerBulan($bulan,$tahun,$waktu)
@@ -199,6 +189,6 @@ class Service extends Main
                 'metadata' => $response['metadata']
             ];
         }
-        return json_encode($response, true);
+        return $response;
     }
 }

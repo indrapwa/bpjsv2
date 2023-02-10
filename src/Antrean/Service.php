@@ -191,4 +191,133 @@ class Service extends Main
         }
         return $response;
     }
+    public function refPoliFingerprint()
+    {
+        $response = $this->get('ref/poli/fp');
+        $response = json_decode($response, true);
+
+        if ($response['metadata']['code'] == 1) {
+            $data = $this->stringDecrypt($this->cons_id . $this->secret_key . $this->timestamp, $response['response']);
+            $data = $this->decompress($data);
+            $response = [
+                'metadata' => $response['metadata'],
+                'response' => json_decode($data, true)
+            ];
+        } else {
+            $response = [
+                'metadata' => $response['metadata']
+            ];
+        }
+        return $response;
+    }
+    public function refPasienFingerprint($niknoka, $noidentitas)
+    {
+        $response = $this->get("ref/pasien/fp/identitas/$niknoka/noidentitas/$noidentitas");
+        $response = json_decode($response, true);
+
+        if ($response['metadata']['code'] == 1) {
+            $data = $this->stringDecrypt($this->cons_id . $this->secret_key . $this->timestamp, $response['response']);
+            $data = $this->decompress($data);
+            $response = [
+                'metadata' => $response['metadata'],
+                'response' => json_decode($data, true)
+            ];
+        } else {
+            $response = [
+                'metadata' => $response['metadata']
+            ];
+        }
+        return $response;
+    }
+    public function antreanFarmasiTambah($data)
+    {
+        $response = $this->post("antrean/farmasi/add", $data);
+        $response = json_decode($response, true);
+        if ($response['metadata']['code'] == 200) {
+            $response = [
+                'metadata' => $response['metadata']
+            ];
+        } else {
+            $response = [
+                'metadata' => $response['metadata']
+            ];
+        }
+        return $response;
+    }
+    public function antreanPerTanggal($tanggal)
+    {
+        $response = $this->get("antrean/pendaftaran/tanggal/$tanggal");
+        $response = json_decode($response, true);
+
+        if ($response['metadata']['code'] == 1) {
+            $data = $this->stringDecrypt($this->cons_id . $this->secret_key . $this->timestamp, $response['response']);
+            $data = $this->decompress($data);
+            $response = [
+                'metadata' => $response['metadata'],
+                'response' => json_decode($data, true)
+            ];
+        } else {
+            $response = [
+                'metadata' => $response['metadata']
+            ];
+        }
+        return $response;
+    }
+    public function antreanPerKodebooking($kodebooking)
+    {
+        $response = $this->get("antrean/pendaftaran/kodebooking/$kodebooking");
+        $response = json_decode($response, true);
+
+        if ($response['metadata']['code'] == 1) {
+            $data = $this->stringDecrypt($this->cons_id . $this->secret_key . $this->timestamp, $response['response']);
+            $data = $this->decompress($data);
+            $response = [
+                'metadata' => $response['metadata'],
+                'response' => json_decode($data, true)
+            ];
+        } else {
+            $response = [
+                'metadata' => $response['metadata']
+            ];
+        }
+        return $response;
+    }
+    public function antreanBelumDilayani()
+    {
+        $response = $this->get("antrean/pendaftaran/aktif");
+        $response = json_decode($response, true);
+
+        if ($response['metadata']['code'] == 1) {
+            $data = $this->stringDecrypt($this->cons_id . $this->secret_key . $this->timestamp, $response['response']);
+            $data = $this->decompress($data);
+            $response = [
+                'metadata' => $response['metadata'],
+                'response' => json_decode($data, true)
+            ];
+        } else {
+            $response = [
+                'metadata' => $response['metadata']
+            ];
+        }
+        return $response;
+    }
+    public function antreanPerDokterdanhari($kodepoli,$kodedokter,$hari,$jampraktek)
+    {
+        $response = $this->get("antrean/pendaftaran/kodepoli/$kodepoli/kodedokter/$kodedokter/hari/$hari/jampraktek/$jampraktek");
+        $response = json_decode($response, true);
+
+        if ($response['metadata']['code'] == 1) {
+            $data = $this->stringDecrypt($this->cons_id . $this->secret_key . $this->timestamp, $response['response']);
+            $data = $this->decompress($data);
+            $response = [
+                'metadata' => $response['metadata'],
+                'response' => json_decode($data, true)
+            ];
+        } else {
+            $response = [
+                'metadata' => $response['metadata']
+            ];
+        }
+        return $response;
+    }
 }

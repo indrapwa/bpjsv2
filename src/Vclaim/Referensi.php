@@ -4,15 +4,11 @@ namespace Indrapwa\Bpjsv2\Vclaim;
 
 use Indrapwa\Bpjsv2\Main;
 
-class Rujukan extends Main
+class Referensi extends Main
 {
-    public function getByNoRujukan($jenis, $Rujukan)
+    public function getDiagnosa($diagnosa)
     {
-        if ($jenis == "PCare") {
-            $response = $this->get("Rujukan/$Rujukan");
-        } else {
-            $response = $this->get("Rujukan/RS/$Rujukan");
-        }
+        $response = $this->get("referensi/diagnosa/$diagnosa");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -29,13 +25,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function getByKartuOne($jenis, $nokartu)
+    public function getPoli($poli)
     {
-        if ($jenis == "PCare") {
-            $response = $this->get("Rujukan/Peserta/$nokartu");
-        } else {
-            $response = $this->get("Rujukan/RS/Peserta/$nokartu");
-        }
+        $response = $this->get("referensi/poli/$poli");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -52,13 +44,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function getByKartuMulti($jenis, $nokartu)
+    public function getFaskes($nama, $jenis)
     {
-        if ($jenis == "PCare") {
-            $response = $this->get("Rujukan/List/Peserta/$nokartu");
-        } else {
-            $response = $this->get("Rujukan/RS/List/Peserta/$nokartu");
-        }
+        $response = $this->get("referensi/faskes/$nama/$jenis");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -75,9 +63,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function insert($request)
+    public function getDokterDPJP($pelayanan, $tglPelayanan, $Spesialis)
     {
-        $response = $this->post('Rujukan/insert', $request);
+        $response = $this->get("referensi/dokter/pelayanan/$pelayanan/tglPelayanan/$tglPelayanan/Spesialis/$Spesialis");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -94,9 +82,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function update($request)
+    public function getPropinsi()
     {
-        $response = $this->put('Rujukan/Update', $request);
+        $response = $this->get("referensi/propinsi");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -113,9 +101,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function hapus($request)
+    public function getKabupaten($propinsi)
     {
-        $response = $this->delete('Rujukan/Delete', $request);
+        $response = $this->get("referensi/kabupaten/propinsi/$propinsi");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -132,9 +120,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function insertKhusus($request)
+    public function getKecamatan($kabupaten)
     {
-        $response = $this->post('Rujukan/Khusus/insert', $request);
+        $response = $this->get("referensi/kecamatan/kabupaten/$kabupaten");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -151,9 +139,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function hapusKhusus($request)
+    public function getDiagnosaPRB()
     {
-        $response = $this->delete('Rujukan/Khusus/Delete', $request);
+        $response = $this->get("referensi/diagnosaprb");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -170,9 +158,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function getRujukanKhusus($Bulan, $Tahun)
+    public function getObatPRB($obatprb)
     {
-        $response = $this->get("Rujukan/Khusus/List/Bulan/$Bulan/Tahun/$Tahun");
+        $response = $this->get("referensi/obatprb/$obatprb");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -189,9 +177,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function insert20($request)
+    public function getProcedure($procedure)
     {
-        $response = $this->post("Rujukan/2.0/insert", $request);
+        $response = $this->get("referensi/procedure/$procedure");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -208,9 +196,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function update20($request)
+    public function getKelasrawat()
     {
-        $response = $this->put('Rujukan/2.0/Update', $request);
+        $response = $this->get("referensi/kelasrawat");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -227,9 +215,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function getSpesialistikRujukan($PPKRujukan, $TglRujukan)
+    public function getDokterFaskes($dokter)
     {
-        $response = $this->get("Rujukan/ListSpesialistik/PPKRujukan/$PPKRujukan/TglRujukan/$TglRujukan");
+        $response = $this->get("referensi/dokter/$dokter");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -246,9 +234,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function getSarana($PPKRujukan)
+    public function getSpesialistik()
     {
-        $response = $this->get("Rujukan/ListSarana/PPKRujukan/$PPKRujukan");
+        $response = $this->get("referensi/spesialistik");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -265,9 +253,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function getRujukanKeluarRSByTanggal($tglMulai, $tglAkhir)
+    public function getRuangrawat()
     {
-        $response = $this->get("Rujukan/Keluar/List/tglMulai/$tglMulai/tglAkhir/$tglAkhir");
+        $response = $this->get("referensi/ruangrawat");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -284,9 +272,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function getRujukanKeluarRSByNorujukan($norujukan)
+    public function getCarakeluar()
     {
-        $response = $this->get("Rujukan/Keluar/$norujukan");
+        $response = $this->get("referensi/carakeluar");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -303,9 +291,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function getJumlahSEPRujukan($jenisRujukan, $norujukan)
+    public function getPascapulang()
     {
-        $response = $this->get("Rujukan/JumlahSEP/$jenisRujukan/$norujukan");
+        $response = $this->get("referensi/pascapulang");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {

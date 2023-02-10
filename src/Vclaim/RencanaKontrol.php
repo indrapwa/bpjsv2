@@ -4,80 +4,11 @@ namespace Indrapwa\Bpjsv2\Vclaim;
 
 use Indrapwa\Bpjsv2\Main;
 
-class Rujukan extends Main
+class RencanaKontrol extends Main
 {
-    public function getByNoRujukan($jenis, $Rujukan)
-    {
-        if ($jenis == "PCare") {
-            $response = $this->get("Rujukan/$Rujukan");
-        } else {
-            $response = $this->get("Rujukan/RS/$Rujukan");
-        }
-        $response = json_decode($response, true);
-
-        if ($response['metaData']['code'] == 200) {
-            $data = $this->stringDecrypt($this->cons_id . $this->secret_key . $this->timestamp, $response['response']);
-            $data = $this->decompress($data);
-            $response = [
-                'metaData' => $response['metaData'],
-                'response' => json_decode($data, true)
-            ];
-        } else {
-            $response = [
-                'metaData' => $response['metaData']
-            ];
-        }
-        return $response;
-    }
-    public function getByKartuOne($jenis, $nokartu)
-    {
-        if ($jenis == "PCare") {
-            $response = $this->get("Rujukan/Peserta/$nokartu");
-        } else {
-            $response = $this->get("Rujukan/RS/Peserta/$nokartu");
-        }
-        $response = json_decode($response, true);
-
-        if ($response['metaData']['code'] == 200) {
-            $data = $this->stringDecrypt($this->cons_id . $this->secret_key . $this->timestamp, $response['response']);
-            $data = $this->decompress($data);
-            $response = [
-                'metaData' => $response['metaData'],
-                'response' => json_decode($data, true)
-            ];
-        } else {
-            $response = [
-                'metaData' => $response['metaData']
-            ];
-        }
-        return $response;
-    }
-    public function getByKartuMulti($jenis, $nokartu)
-    {
-        if ($jenis == "PCare") {
-            $response = $this->get("Rujukan/List/Peserta/$nokartu");
-        } else {
-            $response = $this->get("Rujukan/RS/List/Peserta/$nokartu");
-        }
-        $response = json_decode($response, true);
-
-        if ($response['metaData']['code'] == 200) {
-            $data = $this->stringDecrypt($this->cons_id . $this->secret_key . $this->timestamp, $response['response']);
-            $data = $this->decompress($data);
-            $response = [
-                'metaData' => $response['metaData'],
-                'response' => json_decode($data, true)
-            ];
-        } else {
-            $response = [
-                'metaData' => $response['metaData']
-            ];
-        }
-        return $response;
-    }
     public function insert($request)
     {
-        $response = $this->post('Rujukan/insert', $request);
+        $response = $this->post('RencanaKontrol/insert', $request);
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -96,7 +27,7 @@ class Rujukan extends Main
     }
     public function update($request)
     {
-        $response = $this->put('Rujukan/Update', $request);
+        $response = $this->put('RencanaKontrol/Update', $request);
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -115,7 +46,7 @@ class Rujukan extends Main
     }
     public function hapus($request)
     {
-        $response = $this->delete('Rujukan/Delete', $request);
+        $response = $this->delete('RencanaKontrol/Delete', $request);
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -132,9 +63,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function insertKhusus($request)
+    public function insertSPRI($request)
     {
-        $response = $this->post('Rujukan/Khusus/insert', $request);
+        $response = $this->post('RencanaKontrol/InsertSPRI', $request);
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -151,9 +82,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function hapusKhusus($request)
+    public function UpdateSPRI($request)
     {
-        $response = $this->delete('Rujukan/Khusus/Delete', $request);
+        $response = $this->put('RencanaKontrol/UpdateSPRI', $request);
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -170,9 +101,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function getRujukanKhusus($Bulan, $Tahun)
+    public function getSEP($nosep)
     {
-        $response = $this->get("Rujukan/Khusus/List/Bulan/$Bulan/Tahun/$Tahun");
+        $response = $this->get("RencanaKontrol/nosep/$nosep");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -189,9 +120,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function insert20($request)
+    public function getSuratKontrol($noSuratKontrol)
     {
-        $response = $this->post("Rujukan/2.0/insert", $request);
+        $response = $this->get("RencanaKontrol/noSuratKontrol/$noSuratKontrol");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -208,9 +139,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function update20($request)
+    public function getSuratKontrolByNokartu($Bulan, $Tahun, $Nokartu, $filter)
     {
-        $response = $this->put('Rujukan/2.0/Update', $request);
+        $response = $this->get("RencanaKontrol/ListRencanaKontrol/Bulan/$Bulan/Tahun/$Tahun/Nokartu/$Nokartu/filter/$filter");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -227,9 +158,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function getSpesialistikRujukan($PPKRujukan, $TglRujukan)
+    public function getSuratKontrolByTanggal($tglAwal, $tglAkhir, $filter)
     {
-        $response = $this->get("Rujukan/ListSpesialistik/PPKRujukan/$PPKRujukan/TglRujukan/$TglRujukan");
+        $response = $this->get("RencanaKontrol/ListRencanaKontrol/tglAwal/$tglAwal/tglAkhir/$tglAkhir/filter/$filter");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -246,9 +177,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function getSarana($PPKRujukan)
+    public function getPoli($JnsKontrol, $nomor, $TglRencanaKontrol)
     {
-        $response = $this->get("Rujukan/ListSarana/PPKRujukan/$PPKRujukan");
+        $response = $this->get("RencanaKontrol/ListSpesialistik/JnsKontrol/$JnsKontrol/nomor/$nomor/TglRencanaKontrol/$TglRencanaKontrol");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {
@@ -265,47 +196,9 @@ class Rujukan extends Main
         }
         return $response;
     }
-    public function getRujukanKeluarRSByTanggal($tglMulai, $tglAkhir)
+    public function getDokter($JnsKontrol, $KdPoli, $TglRencanaKontrol)
     {
-        $response = $this->get("Rujukan/Keluar/List/tglMulai/$tglMulai/tglAkhir/$tglAkhir");
-        $response = json_decode($response, true);
-
-        if ($response['metaData']['code'] == 200) {
-            $data = $this->stringDecrypt($this->cons_id . $this->secret_key . $this->timestamp, $response['response']);
-            $data = $this->decompress($data);
-            $response = [
-                'metaData' => $response['metaData'],
-                'response' => json_decode($data, true)
-            ];
-        } else {
-            $response = [
-                'metaData' => $response['metaData']
-            ];
-        }
-        return $response;
-    }
-    public function getRujukanKeluarRSByNorujukan($norujukan)
-    {
-        $response = $this->get("Rujukan/Keluar/$norujukan");
-        $response = json_decode($response, true);
-
-        if ($response['metaData']['code'] == 200) {
-            $data = $this->stringDecrypt($this->cons_id . $this->secret_key . $this->timestamp, $response['response']);
-            $data = $this->decompress($data);
-            $response = [
-                'metaData' => $response['metaData'],
-                'response' => json_decode($data, true)
-            ];
-        } else {
-            $response = [
-                'metaData' => $response['metaData']
-            ];
-        }
-        return $response;
-    }
-    public function getJumlahSEPRujukan($jenisRujukan, $norujukan)
-    {
-        $response = $this->get("Rujukan/JumlahSEP/$jenisRujukan/$norujukan");
+        $response = $this->get("RencanaKontrol/JadwalPraktekDokter/JnsKontrol/$JnsKontrol/KdPoli/$KdPoli/TglRencanaKontrol/$TglRencanaKontrol");
         $response = json_decode($response, true);
 
         if ($response['metaData']['code'] == 200) {

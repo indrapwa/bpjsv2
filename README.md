@@ -61,34 +61,33 @@ $data = [
     "keterangan" => "Peserta harap 30 menit lebih awal guna pencatatan administrasi."
 ];
 echo json_encode($antreanService->antreanTambah($data), true);
-
 ```
 
 ## Service tersedia
 ### Antrean
-Referensi Poli
-Referensi Dokter
-Referensi Jadwal Dokter
-Referensi Poli Finger Print New
-Referensi Pasien Finger Print New
-Update Jadwal Dokter
-Tambah Antrean
-Tambah Antrean Farmasi New
-Update Waktu Antrean Update
-Batal Antrean
-List Waktu Task Id
-Dashboard Per Tanggal
-Dashboard Per Bulan
-Antrean Per Tanggal New
-Antrean Per Kode Booking New
-Antrean Belum Dilayani New
-Antrean Belum Dilayani Per Poli Per Dokter Per Hari Per Jam Praktek
+- Referensi Poli
+- Referensi Dokter
+- Referensi Jadwal Dokter
+- Referensi Poli Finger Print New
+- Referensi Pasien Finger Print New
+- Update Jadwal Dokter
+- Tambah Antrean
+- Tambah Antrean Farmasi New
+- Update Waktu Antrean Update
+- Batal Antrean
+- List Waktu Task Id
+- Dashboard Per Tanggal
+- Dashboard Per Bulan
+- Antrean Per Tanggal New
+- Antrean Per Kode Booking New
+- Antrean Belum Dilayani New
+- Antrean Belum Dilayani Per Poli Per Dokter Per Hari Per Jam Praktek
 ### Vclaim
-Lembar Pengajuan Klaim
-Monitoring
-Peserta
-Pembuatan Rujuk Balik (PRB)
-Referensi
-Pembuatan Rencana Kontrol/SPRI
-Cari Rujukan
-Pembuatan SEP
+- Lembar Pengajuan Klaim
+- Monitoring
+- Peserta
+- Pembuatan Rujuk Balik (PRB)
+- Referensi
+- Pembuatan Rencana Kontrol/SPRI
+- Cari Rujukan
+- Pembuatan SEP
